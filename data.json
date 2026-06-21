@@ -156,6 +156,13 @@
       "date": "2026-06-21",
       "slot": "evening",
       "amount": 10
+    },
+    {
+      "kind": "insulin",
+      "itemId": "d10f2868-0380-4ba9-8d5a-e7196452f994",
+      "date": "2026-06-21",
+      "slot": "noon",
+      "amount": 12
     }
   ],
   "pharmacyVisits": [
