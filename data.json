@@ -103,6 +103,23 @@
       },
       "createdAt": "2026-06-21T16:26:18.549Z",
       "updatedAt": "2026-06-21T16:26:18.549Z"
+    },
+    {
+      "id": "d10f2868-0380-4ba9-8d5a-e7196452f994",
+      "name": "Novorapid",
+      "type": "rapid",
+      "unitsPerMl": 100,
+      "mlPerCartridge": 3,
+      "cartridgesPerBox": 5,
+      "stockCartridges": 5,
+      "stockDate": "2026-06-06",
+      "dose": {
+        "morning": 11,
+        "noon": 12,
+        "evening": 14
+      },
+      "createdAt": "2026-06-21T16:28:58.401Z",
+      "updatedAt": "2026-06-21T16:28:58.401Z"
     }
   ],
   "sensors": [
