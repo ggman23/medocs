@@ -1,6 +1,21 @@
 {
   "version": 1,
-  "medications": [],
+  "medications": [
+    {
+      "id": "c800a23b-a4d6-42d4-a0bc-8f7a280edb81",
+      "name": "Eliquis 5 mg",
+      "unit": "comprimé",
+      "stock": 60,
+      "stockDate": "2026-06-21",
+      "dose": {
+        "morning": 1,
+        "noon": 0,
+        "evening": 1
+      },
+      "createdAt": "2026-06-21T16:20:25.137Z",
+      "updatedAt": "2026-06-21T16:20:25.137Z"
+    }
+  ],
   "insulins": [],
   "sensors": [],
   "intake": [],
