@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+
+  /* Brand: calm medical teal */
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+  --color-brand-900: #134e4a;
+
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+}
+
+:root {
+  --background: #f4f7fa;
+  --foreground: var(--color-ink);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 100% -10%, #e7fbf6 0%, transparent 55%),
+    radial-gradient(900px 500px at -10% 0%, #eef2ff 0%, transparent 45%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+/* A soft, modern card surface used throughout the app. */
+@utility card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 8px 24px -12px rgba(15, 23, 42, 0.12);
+}
+
+/* Hide number input spinners for a cleaner look */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-pop {
+  animation: pop-in 0.18s ease-out;
+}

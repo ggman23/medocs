@@ -1,0 +1,18 @@
+services:
+  medocs:
+    build: .
+    image: medocs
+    container_name: medocs
+    ports:
+      - "3000:3000"
+    environment:
+      APP_TZ: Europe/Paris
+      DATABASE_PATH: /data/medocs.db
+      # Décommentez et choisissez un mot de passe avant d'exposer l'app sur Internet :
+      # APP_PASSWORD: choisissez-un-mot-de-passe-solide
+    volumes:
+      - medocs-data:/data
+    restart: unless-stopped
+
+volumes:
+  medocs-data:

@@ -1,0 +1,17 @@
+{
+  "name": "Médocs — Suivi de mes traitements",
+  "short_name": "Médocs",
+  "description": "Suivi du stock de mes médicaments, insuline et capteurs de glycémie.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f7fa",
+  "theme_color": "#0d9488",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
