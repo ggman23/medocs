@@ -33,7 +33,7 @@
       "id": "e8e02b73-25ef-416e-896a-8fba3de2606c",
       "name": "Diffu-K 600 mg",
       "unit": "comprimé",
-      "stock": 120,
+      "stock": 233,
       "stockDate": "2026-06-21",
       "dose": {
         "morning": 1,
@@ -41,7 +41,7 @@
         "evening": 0
       },
       "createdAt": "2026-06-21T16:21:11.353Z",
-      "updatedAt": "2026-06-21T16:21:11.353Z"
+      "updatedAt": "2026-06-21T18:05:54.601Z"
     },
     {
       "id": "2aafbcb0-7942-4553-b3db-8abcc8537aa1",
