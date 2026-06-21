@@ -61,7 +61,7 @@
       "id": "78cc313f-7bfc-4419-8448-a645f5e881d5",
       "name": "Valsartan 40 mg",
       "unit": "comprimé",
-      "stock": 90,
+      "stock": 78,
       "stockDate": "2026-06-21",
       "dose": {
         "morning": 1,
@@ -69,7 +69,7 @@
         "evening": 0
       },
       "createdAt": "2026-06-21T16:21:58.333Z",
-      "updatedAt": "2026-06-21T16:21:58.333Z"
+      "updatedAt": "2026-06-21T18:07:28.503Z"
     },
     {
       "id": "b2acbc87-1b34-4f8b-b588-dc1e68875603",
