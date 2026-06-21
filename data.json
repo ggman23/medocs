@@ -87,7 +87,19 @@
     }
   ],
   "insulins": [],
-  "sensors": [],
+  "sensors": [
+    {
+      "id": "9d3a258a-d28a-4b9b-93be-8e83efd5658a",
+      "name": "Dexcom One+",
+      "validityDays": 10,
+      "toleranceHours": 12,
+      "placedAt": "2026-06-16T05:00:00.000Z",
+      "stock": 1,
+      "stockDate": "2026-06-21",
+      "createdAt": "2026-06-21T16:23:43.537Z",
+      "updatedAt": "2026-06-21T16:23:43.537Z"
+    }
+  ],
   "intake": [],
   "pharmacyVisits": []
 }
