@@ -84,6 +84,20 @@
       },
       "createdAt": "2026-06-21T16:22:22.617Z",
       "updatedAt": "2026-06-21T16:22:22.617Z"
+    },
+    {
+      "id": "7eae8a43-c0d7-4253-b9b7-5dfe09b8fa07",
+      "name": "Bisoprolol 3.75 mg",
+      "unit": "comprimé",
+      "stock": 23,
+      "stockDate": "2026-06-21",
+      "dose": {
+        "morning": 1,
+        "noon": 0,
+        "evening": 0
+      },
+      "createdAt": "2026-06-21T18:04:59.993Z",
+      "updatedAt": "2026-06-21T18:04:59.993Z"
     }
   ],
   "insulins": [
