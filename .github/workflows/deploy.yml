@@ -2,7 +2,10 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, master]
+    # `main` is the intended deploy branch. The current default branch is also
+    # listed so the GitHub Pages environment (which only allows the default
+    # branch) can publish until `main` is made the default.
+    branches: [main, master, claude/determined-fermi-k9e4ys]
   workflow_dispatch:
 
 # Allow the workflow to publish to GitHub Pages.
