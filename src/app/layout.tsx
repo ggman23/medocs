@@ -1,12 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
-import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
+
+// Next prefixes _next assets and the manifest with basePath, but not the icon
+// hrefs, so we prefix those ourselves.
+const bp = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const metadata: Metadata = {
   title: "Médocs — Suivi de mes traitements",
@@ -15,8 +18,8 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Médocs" },
   icons: {
-    icon: "/icons/icon.svg",
-    apple: "/icons/apple-touch-icon.png",
+    icon: `${bp}/icons/icon.svg`,
+    apple: `${bp}/icons/apple-touch-icon.png`,
   },
 };
 
@@ -34,10 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={`${geistSans.variable} h-full antialiased`}>
-      <body className="min-h-full">
-        {children}
-        <ServiceWorkerRegister />
-      </body>
+      <body className="min-h-full">{children}</body>
     </html>
   );
 }
