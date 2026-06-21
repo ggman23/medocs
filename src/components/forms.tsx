@@ -447,6 +447,58 @@ export function RestockForm({
   );
 }
 
+// ---- Insulin stock / catch-up (what's really left now) -------------------
+
+export function InsulinStockForm({ insulin, onDone }: { insulin: InsulinDTO; onDone: () => void }) {
+  const { state, actions } = useMedocs();
+  const upc = insulin.unitsPerCartridge;
+  const startFull = Math.floor(insulin.currentCartridges);
+  const startOpen = Math.max(0, Math.round((insulin.currentCartridges - startFull) * upc));
+  const [full, setFull] = useState(String(startFull));
+  const [open, setOpen] = useState(String(startOpen));
+  const [date, setDate] = useState(state?.today ?? "");
+
+  const totalUnits = num(full) * upc + num(open);
+  const cartridges = upc > 0 ? totalUnits / upc : 0;
+
+  const { busy, error, submit } = useSubmit(
+    () => actions.updateInsulin(insulin.id, { stockCartridges: cartridges, stockDate: date }),
+    onDone,
+  );
+
+  return (
+    <FormShell
+      onSubmit={submit}
+      submitLabel="Mettre à jour le stock"
+      onCancel={onDone}
+      error={error}
+      busy={busy}
+    >
+      <p className="text-sm text-slate-500">
+        Indiquez ce qu&apos;il vous reste <strong>réellement aujourd&apos;hui</strong> (mise à jour
+        ou rattrapage). L&apos;estimation de fin de stock repartira de cette valeur.
+      </p>
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Cartouches pleines">
+          <NumberInput value={full} min={0} step={1} onChange={(e) => setFull(e.target.value)} autoFocus />
+        </Field>
+        <Field label="Unités dans la cartouche entamée" hint={`sur ${fmtNum(upc)}`}>
+          <NumberInput value={open} min={0} step={1} onChange={(e) => setOpen(e.target.value)} />
+        </Field>
+      </div>
+      <Field label="À partir du">
+        <TextInput type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+      </Field>
+      <div className="flex justify-between rounded-xl bg-brand-50/70 px-3.5 py-3 text-sm text-brand-800">
+        <span>Stock total</span>
+        <span className="font-semibold tabular-nums">
+          {fmtNum(totalUnits)} unités · {fmtNum(cartridges)} cartouches
+        </span>
+      </div>
+    </FormShell>
+  );
+}
+
 // ---- Pharmacy visit ------------------------------------------------------
 
 export function PharmacyForm({ onDone }: { onDone: () => void }) {

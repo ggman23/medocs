@@ -21,6 +21,7 @@ import { Badge, Button, IconButton, Modal, ProgressBar, SEVERITY_TEXT, cx } from
 import { DoseChecklist } from "./DoseChecklist";
 import {
   InsulinForm,
+  InsulinStockForm,
   MedicationForm,
   PharmacyForm,
   PlaceSensorForm,
@@ -142,8 +143,15 @@ export function MedicationCard({ med }: { med: MedicationDTO }) {
       <RunOutLine {...p} />
 
       <div className="border-t border-slate-100 pt-3">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">Aujourd&apos;hui</p>
-        <DoseChecklist kind="medication" itemId={med.id} today={med.today} unit={med.unit} />
+        <DoseChecklist
+          kind="medication"
+          itemId={med.id}
+          dose={med.dose}
+          logs={med.logs}
+          stockDate={med.stockDate}
+          todayISO={med.today.date}
+          unit={med.unit}
+        />
       </div>
 
       <div className="flex gap-2">
@@ -208,19 +216,27 @@ export function InsulinCard({ ins }: { ins: InsulinDTO }) {
       <RunOutLine {...p} />
 
       <div className="border-t border-slate-100 pt-3">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">Aujourd&apos;hui</p>
-        <DoseChecklist kind="insulin" itemId={ins.id} today={ins.today} unit="unités" editableAmount />
+        <DoseChecklist
+          kind="insulin"
+          itemId={ins.id}
+          dose={ins.dose}
+          logs={ins.logs}
+          stockDate={ins.stockDate}
+          todayISO={ins.today.date}
+          unit="unités"
+          editableAmount
+        />
       </div>
 
       <Button variant="subtle" onClick={() => setModal("restock")}>
-        <RefreshCw className="h-4 w-4" /> Réapprovisionner
+        <RefreshCw className="h-4 w-4" /> Mettre à jour le stock
       </Button>
 
       <Modal open={modal === "edit"} onClose={() => setModal(null)} title="Modifier l'insuline">
         <InsulinForm initial={ins} onDone={() => setModal(null)} />
       </Modal>
-      <Modal open={modal === "restock"} onClose={() => setModal(null)} title="Réapprovisionner">
-        <RestockForm kind="insulin" id={ins.id} current={ins.stockCartridges} unit="cartouches" onDone={() => setModal(null)} />
+      <Modal open={modal === "restock"} onClose={() => setModal(null)} title="Mettre à jour le stock">
+        <InsulinStockForm insulin={ins} onDone={() => setModal(null)} />
       </Modal>
     </article>
   );

@@ -1,53 +1,106 @@
 "use client";
 
 import { useState } from "react";
-import { Check, RotateCcw, X } from "lucide-react";
-import type { TodayDoses } from "@/domain/api";
-import type { Slot } from "@/domain/types";
+import { Check, ChevronLeft, ChevronRight, RotateCcw, X } from "lucide-react";
+import type { DoseSchedule, IntakeLogEntry, Slot } from "@/domain/types";
 import { SLOT_LABELS_FR } from "@/domain/types";
+import { buildDayDoses } from "@/domain/state";
+import { addDays, diffDays } from "@/domain/dates";
 import { useMedocs } from "@/state/MedocsProvider";
 import { cx, NumberInput } from "./ui";
-import { fmtNum } from "@/lib/format";
+import { fmtNum, prettyDateFR } from "@/lib/format";
 
 const ORDER: Slot[] = ["morning", "noon", "evening"];
 
+/**
+ * Records actual doses per slot. A day navigator lets you go back to previous
+ * days (down to the stock date) to catch up missed entries; unchanged past days
+ * keep the planned dose.
+ */
 export function DoseChecklist({
   kind,
   itemId,
-  today,
+  dose,
+  logs,
+  stockDate,
+  todayISO,
   unit,
   editableAmount = false,
 }: {
   kind: "medication" | "insulin";
   itemId: string;
-  today: TodayDoses;
+  dose: DoseSchedule;
+  logs: IntakeLogEntry[];
+  stockDate: string;
+  todayISO: string;
   unit: string;
   editableAmount?: boolean;
 }) {
   const { actions } = useMedocs();
-  const slots = ORDER.filter(
-    (s) => today[s].scheduled > 0 || today[s].logged !== null,
-  );
+  const [selected, setSelected] = useState(todayISO);
 
-  if (slots.length === 0) {
-    return <p className="text-sm text-slate-400">Aucune prise programmée aujourd&apos;hui.</p>;
-  }
+  const isToday = selected === todayISO;
+  const isPast = diffDays(todayISO, selected) > 0;
+  const day = buildDayDoses(dose, logs, selected);
+  const slots = ORDER.filter((s) => day[s].scheduled > 0 || day[s].logged !== null);
+
+  const canPrev = diffDays(selected, stockDate) > 0;
+  const canNext = !isToday;
+
+  const navBtn = "inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer disabled:cursor-default";
 
   return (
     <div className="flex flex-col gap-2">
-      {slots.map((slot) => (
-        <SlotRow
-          key={slot}
-          slot={slot}
-          scheduled={today[slot].scheduled}
-          logged={today[slot].logged}
-          unit={unit}
-          editableAmount={editableAmount}
-          onTaken={(amount) => actions.setIntake(kind, itemId, today.date, slot, amount)}
-          onSkipped={() => actions.setIntake(kind, itemId, today.date, slot, 0)}
-          onReset={() => actions.setIntake(kind, itemId, today.date, slot, null)}
-        />
-      ))}
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          {isToday ? "Aujourd'hui" : prettyDateFR(selected)}
+        </p>
+        <div className="flex items-center gap-0.5">
+          <button
+            className={navBtn}
+            disabled={!canPrev}
+            onClick={() => setSelected(addDays(selected, -1))}
+            aria-label="Jour précédent"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          {!isToday && (
+            <button
+              onClick={() => setSelected(todayISO)}
+              className="rounded-lg px-2 py-1 text-xs font-semibold text-brand-700 hover:bg-brand-50 cursor-pointer"
+            >
+              Aujourd&apos;hui
+            </button>
+          )}
+          <button
+            className={navBtn}
+            disabled={!canNext}
+            onClick={() => setSelected(addDays(selected, 1))}
+            aria-label="Jour suivant"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
+      {slots.length === 0 ? (
+        <p className="text-sm text-slate-400">Aucune prise programmée ce jour-là.</p>
+      ) : (
+        slots.map((slot) => (
+          <SlotRow
+            key={slot}
+            slot={slot}
+            scheduled={day[slot].scheduled}
+            logged={day[slot].logged}
+            unit={unit}
+            editableAmount={editableAmount}
+            isPast={isPast}
+            onTaken={(amount) => actions.setIntake(kind, itemId, selected, slot, amount)}
+            onSkipped={() => actions.setIntake(kind, itemId, selected, slot, 0)}
+            onReset={() => actions.setIntake(kind, itemId, selected, slot, null)}
+          />
+        ))
+      )}
     </div>
   );
 }
@@ -58,6 +111,7 @@ function SlotRow({
   logged,
   unit,
   editableAmount,
+  isPast,
   onTaken,
   onSkipped,
   onReset,
@@ -67,6 +121,7 @@ function SlotRow({
   logged: number | null;
   unit: string;
   editableAmount: boolean;
+  isPast: boolean;
   onTaken: (amount: number) => void;
   onSkipped: () => void;
   onReset: () => void;
@@ -74,7 +129,6 @@ function SlotRow({
   const taken = logged !== null && logged > 0;
   const skipped = logged === 0;
   const [draft, setDraft] = useState<string>("");
-
   const amountShown = taken ? logged! : scheduled;
 
   return (
@@ -83,6 +137,9 @@ function SlotRow({
         <p className="text-sm font-medium text-slate-700">{SLOT_LABELS_FR[slot]}</p>
         <p className="text-xs text-slate-400">
           Prévu&nbsp;: {fmtNum(scheduled)} {unit}
+          {isPast && logged === null && (
+            <span className="text-emerald-500"> · pris par défaut</span>
+          )}
         </p>
       </div>
 

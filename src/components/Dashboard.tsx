@@ -15,6 +15,7 @@ import { useMedocs } from "@/state/MedocsProvider";
 import { Button, IconButton, Modal, cx } from "./ui";
 import { InsulinCard, MedicationCard, PharmacyCard, SensorCard } from "./cards";
 import { InsulinForm, MedicationForm, SensorForm } from "./forms";
+import { Overview } from "./Overview";
 import { Setup } from "./Setup";
 import { cap, prettyDateFR } from "@/lib/format";
 
@@ -113,6 +114,8 @@ export function Dashboard() {
       </header>
 
       <main className="mx-auto flex max-w-5xl flex-col gap-10 px-4 pt-6">
+        <Overview state={state} />
+
         <section>
           <SectionHeader
             icon={<Pill className="h-5 w-5" />}

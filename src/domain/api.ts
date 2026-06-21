@@ -1,7 +1,7 @@
 // DTOs returned by the API and consumed by the UI. Kept free of server-only
 // imports so client components can use these types directly.
 
-import { DoseSchedule, InsulinType, PharmacyVisit } from "./types";
+import { DoseSchedule, InsulinType, IntakeLogEntry, PharmacyVisit } from "./types";
 
 export type Severity = "ok" | "warn" | "critical";
 export type SensorState = "none" | "active" | "tolerance" | "expired";
@@ -39,6 +39,7 @@ export interface MedicationDTO {
   dose: DoseSchedule;
   projection: ProjectionDTO;
   today: TodayDoses;
+  logs: IntakeLogEntry[];
 }
 
 export interface InsulinDTO {
@@ -56,6 +57,7 @@ export interface InsulinDTO {
   currentCartridges: number;
   projection: ProjectionDTO;
   today: TodayDoses;
+  logs: IntakeLogEntry[];
 }
 
 export interface SensorDTO {

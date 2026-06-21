@@ -32,10 +32,15 @@ function logsFor(
     .map((r) => ({ date: r.date, slot: r.slot, amount: r.amount }));
 }
 
-function todayDoses(dose: DoseSchedule, logs: IntakeLogEntry[], today: string): TodayDoses {
-  const find = (slot: Slot) => logs.find((l) => l.date === today && l.slot === slot);
+/** Slot info (scheduled vs. recorded) for one item on one calendar day. */
+export function buildDayDoses(
+  dose: DoseSchedule,
+  logs: IntakeLogEntry[],
+  date: string,
+): TodayDoses {
+  const find = (slot: Slot) => logs.find((l) => l.date === date && l.slot === slot);
   const slot = (s: Slot) => ({ scheduled: dose[s], logged: find(s)?.amount ?? null });
-  return { date: today, morning: slot("morning"), noon: slot("noon"), evening: slot("evening") };
+  return { date, morning: slot("morning"), noon: slot("noon"), evening: slot("evening") };
 }
 
 function projectionDTO(p: {
@@ -70,7 +75,8 @@ export function computeState(data: MedocsData, now: Date = new Date()): StateDTO
         notes: med.notes,
         dose: med.dose,
         projection: projectionDTO(proj),
-        today: todayDoses(med.dose, logs, today),
+        today: buildDayDoses(med.dose, logs, today),
+        logs,
       };
     });
 
@@ -93,7 +99,8 @@ export function computeState(data: MedocsData, now: Date = new Date()): StateDTO
         unitsPerCartridge: proj.unitsPerCartridge,
         currentCartridges: proj.currentCartridges,
         projection: projectionDTO(proj),
-        today: todayDoses(ins.dose, logs, today),
+        today: buildDayDoses(ins.dose, logs, today),
+        logs,
       };
     });
 
