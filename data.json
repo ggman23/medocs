@@ -86,7 +86,25 @@
       "updatedAt": "2026-06-21T16:22:22.617Z"
     }
   ],
-  "insulins": [],
+  "insulins": [
+    {
+      "id": "f51d5cc1-e467-403a-91f9-13ae7efd53ec",
+      "name": "Tresiba",
+      "type": "slow",
+      "unitsPerMl": 100,
+      "mlPerCartridge": 3,
+      "cartridgesPerBox": 5,
+      "stockCartridges": 5,
+      "stockDate": "2026-06-20",
+      "dose": {
+        "morning": 0,
+        "noon": 0,
+        "evening": 22
+      },
+      "createdAt": "2026-06-21T16:26:18.549Z",
+      "updatedAt": "2026-06-21T16:26:18.549Z"
+    }
+  ],
   "sensors": [
     {
       "id": "9d3a258a-d28a-4b9b-93be-8e83efd5658a",
