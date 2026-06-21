@@ -75,7 +75,7 @@
       "id": "b2acbc87-1b34-4f8b-b588-dc1e68875603",
       "name": "Metformine 1000 mg",
       "unit": "comprimé",
-      "stock": 210,
+      "stock": 430,
       "stockDate": "2026-06-21",
       "dose": {
         "morning": 1,
@@ -83,7 +83,7 @@
         "evening": 1
       },
       "createdAt": "2026-06-21T16:22:22.617Z",
-      "updatedAt": "2026-06-21T16:22:22.617Z"
+      "updatedAt": "2026-06-21T18:06:51.242Z"
     },
     {
       "id": "7eae8a43-c0d7-4253-b9b7-5dfe09b8fa07",
