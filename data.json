@@ -19,7 +19,7 @@
       "id": "57553a3f-41a7-4440-a4bb-caedcd77e828",
       "name": "Furosémide 40mg",
       "unit": "comprimé",
-      "stock": 90,
+      "stock": 127,
       "stockDate": "2026-06-21",
       "dose": {
         "morning": 1,
@@ -27,7 +27,7 @@
         "evening": 0
       },
       "createdAt": "2026-06-21T16:20:51.865Z",
-      "updatedAt": "2026-06-21T16:20:51.865Z"
+      "updatedAt": "2026-06-21T18:06:31.831Z"
     },
     {
       "id": "e8e02b73-25ef-416e-896a-8fba3de2606c",
