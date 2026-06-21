@@ -22,6 +22,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # GitHub Pages only allows deploys from the default branch, so only run there.
+    if: github.ref_name == github.event.repository.default_branch
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
