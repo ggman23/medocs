@@ -111,15 +111,15 @@
       "unitsPerMl": 100,
       "mlPerCartridge": 3,
       "cartridgesPerBox": 5,
-      "stockCartridges": 5,
-      "stockDate": "2026-06-06",
+      "stockCartridges": 3.3,
+      "stockDate": "2026-06-21",
       "dose": {
         "morning": 11,
         "noon": 12,
         "evening": 14
       },
       "createdAt": "2026-06-21T16:28:58.401Z",
-      "updatedAt": "2026-06-21T16:28:58.401Z"
+      "updatedAt": "2026-06-21T17:07:47.853Z"
     }
   ],
   "sensors": [
