@@ -150,5 +150,10 @@
     }
   ],
   "intake": [],
-  "pharmacyVisits": []
+  "pharmacyVisits": [
+    {
+      "id": "969ac7dd-2e81-46f6-a8ff-96e425e31c04",
+      "date": "2026-06-05"
+    }
+  ]
 }
