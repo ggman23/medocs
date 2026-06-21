@@ -42,6 +42,20 @@
       },
       "createdAt": "2026-06-21T16:21:11.353Z",
       "updatedAt": "2026-06-21T16:21:11.353Z"
+    },
+    {
+      "id": "2aafbcb0-7942-4553-b3db-8abcc8537aa1",
+      "name": "Atorvastatine 40 mg",
+      "unit": "comprimé",
+      "stock": 120,
+      "stockDate": "2026-06-21",
+      "dose": {
+        "morning": 0,
+        "noon": 0,
+        "evening": 2
+      },
+      "createdAt": "2026-06-21T16:21:34.105Z",
+      "updatedAt": "2026-06-21T16:21:34.105Z"
     }
   ],
   "insulins": [],
