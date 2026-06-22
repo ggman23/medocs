@@ -321,6 +321,17 @@ export function SensorCard({ sensor }: { sensor: SensorDTO }) {
         <Badge>Posé le {st.placedAtFR ?? "—"}</Badge>
       </div>
 
+      <div className="flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2 text-sm">
+        <CalendarClock className={cx("h-4 w-4 shrink-0", SEVERITY_TEXT[st.restockSeverity])} />
+        <span className="text-slate-600">
+          Pharmacie (capteurs) avant le{" "}
+          <span className={cx("font-semibold", SEVERITY_TEXT[st.restockSeverity])}>
+            {st.coverageEndFR}
+          </span>{" "}
+          <span className="text-slate-400">· {daysLabel(st.restockDaysRemaining)}</span>
+        </span>
+      </div>
+
       <div className="flex gap-2">
         <Button className="flex-1" onClick={() => setModal("place")}>
           <MapPin className="h-4 w-4" /> Poser un capteur

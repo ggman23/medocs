@@ -76,6 +76,10 @@ export interface SensorDTO {
     toleranceUntilFR: string | null;
     hoursRemaining: number | null;
     severity: Severity;
+    /** Pharmacy deadline: when the worn sensor + spares run out. */
+    coverageEndFR: string;
+    restockDaysRemaining: number;
+    restockSeverity: Severity;
   };
 }
 

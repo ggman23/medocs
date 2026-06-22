@@ -183,6 +183,8 @@ export interface SensorStatus {
   toleranceUntil: Date | null;
   /** Hours of normal function remaining (can be negative inside tolerance). */
   hoursRemaining: number | null;
+  /** When the spares run out: current expiry + spares × validity. The pharmacy deadline. */
+  coverageEnd: Date;
   spares: number;
 }
 
@@ -194,6 +196,9 @@ export interface SensorStatus {
  * window before the sensor must be replaced.
  */
 export function sensorStatus(sensor: Sensor, now: Date = new Date()): SensorStatus {
+  const dayMs = 86_400_000;
+  const spareMs = sensor.stock * sensor.validityDays * dayMs;
+
   if (!sensor.placedAt) {
     return {
       state: "none",
@@ -201,11 +206,13 @@ export function sensorStatus(sensor: Sensor, now: Date = new Date()): SensorStat
       expiresAt: null,
       toleranceUntil: null,
       hoursRemaining: null,
+      // No sensor worn yet: the spares would be placed starting now.
+      coverageEnd: new Date(now.getTime() + spareMs),
       spares: sensor.stock,
     };
   }
   const placedAt = new Date(sensor.placedAt);
-  const expiresAt = new Date(placedAt.getTime() + sensor.validityDays * 86_400_000);
+  const expiresAt = new Date(placedAt.getTime() + sensor.validityDays * dayMs);
   const toleranceUntil = new Date(expiresAt.getTime() + sensor.toleranceHours * 3_600_000);
   const hoursRemaining = (expiresAt.getTime() - now.getTime()) / 3_600_000;
 
@@ -214,7 +221,16 @@ export function sensorStatus(sensor: Sensor, now: Date = new Date()): SensorStat
   else if (now < toleranceUntil) state = "tolerance";
   else state = "expired";
 
-  return { state, placedAt, expiresAt, toleranceUntil, hoursRemaining, spares: sensor.stock };
+  return {
+    state,
+    placedAt,
+    expiresAt,
+    toleranceUntil,
+    hoursRemaining,
+    // After the current sensor, each spare adds another full validity period.
+    coverageEnd: new Date(expiresAt.getTime() + spareMs),
+    spares: sensor.stock,
+  };
 }
 
 /** Convenience: resolve a placed-at instant from local date + time inputs. */

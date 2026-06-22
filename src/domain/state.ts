@@ -106,6 +106,8 @@ export function computeState(data: MedocsData, now: Date = new Date()): StateDTO
 
   const sensors: SensorDTO[] = data.sensors.map((sensor) => {
     const st = sensorStatus(sensor, now);
+    const coverageDate = todayISO(st.coverageEnd); // calendar date the spares run out
+    const restockDays = diffDays(coverageDate, today);
     return {
       id: sensor.id,
       name: sensor.name,
@@ -122,6 +124,9 @@ export function computeState(data: MedocsData, now: Date = new Date()): StateDTO
         toleranceUntilFR: st.toleranceUntil ? formatInstantFR(st.toleranceUntil) : null,
         hoursRemaining: st.hoursRemaining,
         severity: sensorSeverity(st),
+        coverageEndFR: formatFR(coverageDate),
+        restockDaysRemaining: restockDays,
+        restockSeverity: stockSeverity(restockDays),
       },
     };
   });

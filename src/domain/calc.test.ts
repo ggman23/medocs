@@ -157,6 +157,8 @@ describe("Capteur Dexcom One+ (posé le 21/06/2026 à 10:00)", () => {
     expect(formatInstantFR(st.toleranceUntil!)).toBe("01/07/2026 à 22:00");
     expect(st.state).toBe("active");
     expect(st.spares).toBe(2);
+    // 2 capteurs en stock -> couverture jusqu'au 01/07 + 2 x 10 jours = 21/07
+    expect(formatInstantFR(st.coverageEnd)).toBe("21/07/2026 à 10:00");
   });
 
   it("passe en tolérance puis expiré", () => {
