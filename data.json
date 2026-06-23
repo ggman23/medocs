@@ -184,6 +184,13 @@
       "date": "2026-06-22",
       "slot": "noon",
       "amount": 14
+    },
+    {
+      "kind": "medication",
+      "itemId": "7eae8a43-c0d7-4253-b9b7-5dfe09b8fa07",
+      "date": "2026-06-23",
+      "slot": "morning",
+      "amount": 1
     }
   ],
   "pharmacyVisits": [
